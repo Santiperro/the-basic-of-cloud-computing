@@ -8,12 +8,12 @@ class WordSorter:
 
     def sort_words(self):
         words = self.text_block.split()
-        sorted_words = sorted(set(words))
+        sorted_words = sorted(set(words), key=str.lower)
         return sorted_words
 
 
 class Server:
-    def __init__(self, host = 'localhost', port = 5000):
+    def __init__(self, host = 'localhost', port = 5001):
         self.host = host
         self.port = port
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

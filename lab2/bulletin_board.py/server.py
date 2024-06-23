@@ -51,12 +51,15 @@ class Server:
     def handle_client(self, client):
         message = client.recv(1024).decode('utf-8')
         func = self.commands.get(message, self.add_message)
-        func(client)
+        if func == self.add_message:
+            func(message, client)  # pass 'message' as the first argument
+        else:
+            func(client)
 
     def start(self):
         while True:
             client, address = self.server.accept()
-            thread = threading.Thread(target=self.handle_client, args=(client,))
+            thread = threading.Thread(target=self.handle_client, args=(client,))  # pass the function reference
             thread.start()
 
 server = Server()
